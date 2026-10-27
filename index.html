@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NeoInquiry — AI Omnichannel Inquiry Intelligence | NeoAistriq</title>
+  <meta name="description" content="AI-powered omnichannel customer inquiry management platform that eliminates missed inquiries across chat, email, and messaging channels for SMBs." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- Sidebar -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-brand">
+      <div class="brand-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+        </svg>
+      </div>
+      <div class="brand-text">
+        <span class="brand-name">NeoInquiry</span>
+        <span class="brand-tag">by NeoAistriq</span>
+      </div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <div class="nav-section-label">WORKSPACE</div>
+      <a href="#" class="nav-item active" data-view="dashboard" onclick="switchView('dashboard', this)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+        <span>Command Center</span>
+        <span class="nav-badge pulse">3</span>
+      </a>
+      <a href="#" class="nav-item" data-view="inbox" onclick="switchView('inbox', this)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        <span>Unified Inbox</span>
+        <span class="nav-badge">12</span>
+      </a>
+      <a href="#" class="nav-item" data-view="ai-triage" onclick="switchView('ai-triage', this)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+        <span>AI Triage</span>
+      </a>
+      <a href="#" class="nav-item" data-view="analytics" onclick="switchView('analytics', this)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+        <span>Analytics</span>
+      </a>
+      <a href="#" class="nav-item" data-view="esports" onclick="switchView('esports', this)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg>
+        <span>GG Life Esports</span>
+        <span class="nav-badge new">NEW</span>
+      </a>
+
+      <div class="nav-section-label" style="margin-top: 24px;">AI AGENTS</div>
+      <a href="#" class="nav-item" data-view="agents" onclick="switchView('agents', this)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M20 21a8 8 0 1 0-16 0"/></svg>
+        <span>Agent Console</span>
+      </a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="status-dot online"></div>
+      <span>All systems operational</span>
+    </div>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="main-content" id="mainContent">
+    <!-- Top Bar -->
+    <header class="topbar">
+      <div class="topbar-left">
+        <button class="sidebar-toggle" onclick="toggleSidebar()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        </button>
+        <div class="breadcrumb" id="breadcrumb">Command Center</div>
+      </div>
+      <div class="topbar-right">
+        <div class="ai-status">
+          <div class="ai-pulse"></div>
+          <span>AI Engine Active</span>
+        </div>
+        <button class="btn-icon" onclick="showNotifications()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+          <span class="notif-dot"></span>
+        </button>
+        <div class="user-avatar">V</div>
+      </div>
+    </header>
+
+    <!-- DASHBOARD VIEW -->
+    <div id="view-dashboard" class="view active">
+      <div class="page-header">
+        <div>
+          <h1 class="page-title">Command Center</h1>
+          <p class="page-subtitle">Real-time AI-powered inquiry intelligence across all channels</p>
+        </div>
+        <div class="header-actions">
+          <button class="btn btn-ghost" onclick="simulateIncoming()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            Simulate Inquiry
+          </button>
+          <button class="btn btn-primary" onclick="runAITriage()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+            Run AI Triage
+          </button>
+        </div>
+      </div>
+
+      <!-- KPI Cards -->
+      <div class="kpi-grid">
+        <div class="kpi-card" id="kpi-total">
+          <div class="kpi-icon blue">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          </div>
+          <div class="kpi-body">
+            <div class="kpi-value" data-target="247" id="kpi-val-total">0</div>
+            <div class="kpi-label">Total Inquiries (30d)</div>
+            <div class="kpi-delta positive">↑ 18% vs last month</div>
+          </div>
+        </div>
+        <div class="kpi-card" id="kpi-missed">
+          <div class="kpi-icon red">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+          </div>
+          <div class="kpi-body">
+            <div class="kpi-value" data-target="3" id="kpi-val-missed">0</div>
+            <div class="kpi-label">Missed This Week</div>
+            <div class="kpi-delta negative">↓ 91% reduction since AI</div>
+          </div>
+        </div>
+        <div class="kpi-card" id="kpi-response">
+          <div class="kpi-icon green">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12,6 12,12 16,14"/></svg>
+          </div>
+          <div class="kpi-body">
+            <div class="kpi-value" id="kpi-val-response">4.2<span style="font-size:1.2rem">m</span></div>
+            <div class="kpi-label">Avg Response Time</div>
+            <div class="kpi-delta positive">↓ 78% faster with AI drafts</div>
+          </div>
+        </div>
+        <div class="kpi-card" id="kpi-satisfaction">
+          <div class="kpi-icon purple">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          </div>
+          <div class="kpi-body">
+            <div class="kpi-value">94<span style="font-size:1.2rem">%</span></div>
+            <div class="kpi-label">CSAT Score</div>
+            <div class="kpi-delta positive">↑ 12pts in 60 days</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Alert Banner -->
+      <div class="alert-banner" id="alertBanner">
+        <div class="alert-icon">⚡</div>
+        <div class="alert-content">
+          <strong>AI Detected:</strong> 3 high-priority inquiries awaiting action — 1 from GG Life esports program lead, 1 frustrated repeat contact (2nd attempt), 1 pricing query from warm prospect.
+        </div>
+        <button class="alert-action" onclick="switchView('inbox', document.querySelector('[data-view=inbox]'))">Review Now →</button>
+        <button class="alert-close" onclick="this.parentElement.style.display='none'">×</button>
+      </div>
+
+      <!-- Main Grid -->
+      <div class="dashboard-grid">
+        <!-- Live Feed -->
+        <div class="card feed-card">
+          <div class="card-header">
+            <h3 class="card-title">Live Inquiry Feed</h3>
+            <div class="live-badge">● LIVE</div>
+          </div>
+          <div class="feed-list" id="liveFeed">
+            <!-- Injected by JS -->
+          </div>
+        </div>
+
+        <!-- AI Triage Summary -->
+        <div class="card triage-card">
+          <div class="card-header">
+            <h3 class="card-title">AI Triage Breakdown</h3>
+            <button class="btn-text" onclick="switchView('ai-triage', document.querySelector('[data-view=ai-triage]'))">View All →</button>
+          </div>
+          <div class="triage-bars">
+            <div class="triage-row">
+              <div class="triage-label">
+                <span class="dot urgent"></span>Urgent / Escalate
+              </div>
+              <div class="triage-bar-wrap">
+                <div class="triage-bar" style="--width: 12%; --color: #ef4444;"></div>
+              </div>
+              <span class="triage-count">12%</span>
+            </div>
+            <div class="triage-row">
+              <div class="triage-label">
+                <span class="dot high"></span>High Priority
+              </div>
+              <div class="triage-bar-wrap">
+                <div class="triage-bar" style="--width: 28%; --color: #f97316;"></div>
+              </div>
+              <span class="triage-count">28%</span>
+            </div>
+            <div class="triage-row">
+              <div class="triage-label">
+                <span class="dot medium"></span>Standard / Route
+              </div>
+              <div class="triage-bar-wrap">
+                <div class="triage-bar" style="--width: 45%; --color: #3b82f6;"></div>
+              </div>
+              <span class="triage-count">45%</span>
+            </div>
+            <div class="triage-row">
+              <div class="triage-label">
+                <span class="dot low"></span>Auto-Resolved
+              </div>
+              <div class="triage-bar-wrap">
+                <div class="triage-bar" style="--width: 15%; --color: #22c55e;"></div>
+              </div>
+              <span class="triage-count">15%</span>
+            </div>
+          </div>
+          <div class="ai-insight">
+            <div class="insight-icon">🧠</div>
+            <p>AI auto-resolved 15% of inquiries this week via knowledge base matching — saving ~6.2 hours of agent time.</p>
+          </div>
+        </div>
+
+        <!-- Channel Split -->
+        <div class="card channel-card">
+          <div class="card-header">
+            <h3 class="card-title">Channel Distribution</h3>
+          </div>
+          <div class="channel-chart">
+            <canvas id="channelDonut" width="160" height="160"></canvas>
+            <div class="channel-legend">
+              <div class="legend-item"><span class="legend-dot" style="background:#6366f1"></span>Email <strong>41%</strong></div>
+              <div class="legend-item"><span class="legend-dot" style="background:#22d3ee"></span>Live Chat <strong>33%</strong></div>
+              <div class="legend-item"><span class="legend-dot" style="background:#a855f7"></span>WhatsApp <strong>16%</strong></div>
+              <div class="legend-item"><span class="legend-dot" style="background:#f97316"></span>Instagram DM <strong>10%</strong></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Volume Chart -->
+        <div class="card volume-card">
+          <div class="card-header">
+            <h3 class="card-title">Inquiry Volume — Last 14 Days</h3>
+          </div>
+          <canvas id="volumeChart" width="500" height="160"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <!-- INBOX VIEW -->
+    <div id="view-inbox" class="view">
+      <div class="page-header">
+        <div>
+          <h1 class="page-title">Unified Inbox</h1>
+          <p class="page-subtitle">All channels, one intelligent queue — zero missed inquiries</p>
+        </div>
+        <div class="header-actions">
+          <div class="filter-chips">
+            <button class="chip active" onclick="filterInbox('all', this)">All (12)</button>
+            <button class="chip" onclick="filterInbox('urgent', this)">🔴 Urgent (3)</button>
+            <button class="chip" onclick="filterInbox('email', this)">Email (5)</button>
+            <button class="chip" onclick="filterInbox('chat', this)">Chat (4)</button>
+            <button class="chip" onclick="filterInbox('unread', this)">Unread (7)</button>
+          </div>
+        </div>
+      </div>
+      <div class="inbox-layout">
+        <div class="inbox-list" id="inboxList"><!-- Injected by JS --></div>
+        <div class="inbox-detail" id="inboxDetail">
+          <div class="detail-placeholder">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="48" height="48"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            <p>Select an inquiry to view details and AI-generated response draft</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- AI TRIAGE VIEW -->
+    <div id="view-ai-triage" class="view">
+      <div class="page-header">
+        <div>
+          <h1 class="page-title">AI Triage Engine</h1>
+          <p class="page-subtitle">Watch the AI classify, score, and route every inquiry in real time</p>
+        </div>
+        <div class="header-actions">
+          <button class="btn btn-primary" onclick="runTriageDemo()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+            Run Live Demo
+          </button>
+        </div>
+      </div>
+
+      <div class="triage-demo-grid">
+        <div class="card triage-input-card">
+          <div class="card-header"><h3 class="card-title">Incoming Inquiry</h3></div>
+          <div class="triage-input-area">
+            <div class="channel-selector">
+              <button class="ch-btn active" onclick="setChannel('email', this)">📧 Email</button>
+              <button class="ch-btn" onclick="setChannel('chat', this)">💬 Chat</button>
+              <button class="ch-btn" onclick="setChannel('whatsapp', this)">📱 WhatsApp</button>
+            </div>
+            <textarea id="triageInput" class="triage-textarea" placeholder="Paste or type an inquiry here — e.g. &#10;&#10;&quot;Hi, I emailed 3 days ago about pricing for the esports coaching program but haven't heard back. We're about to go with a competitor. Can someone call me today?&quot;" rows="6"></textarea>
+            <div class="triage-presets">
+              <span>Try:</span>
+              <button class="preset-btn" onclick="loadPreset('esports')">GG Life Esports Program</button>
+              <button class="preset-btn" onclick="loadPreset('missed')">Missed Follow-up</button>
+              <button class="preset-btn" onclick="loadPreset('pricing')">Pricing Query</button>
+              <button class="preset-btn" onclick="loadPreset('angry')">Frustrated Customer</button>
+            </div>
+            <button class="btn btn-primary full-width" onclick="analyzeInquiry()">
+              Analyze with AI →
+            </button>
+          </div>
+        </div>
+
+        <div class="card triage-result-card" id="triageResult">
+          <div class="card-header"><h3 class="card-title">AI Analysis Output</h3></div>
+          <div class="triage-result-placeholder" id="triagePlaceholder">
+            <div class="radar-anim">
+              <div class="radar-ring r1"></div>
+              <div class="radar-ring r2"></div>
+              <div class="radar-ring r3"></div>
+              <div class="radar-center">AI</div>
+            </div>
+            <p>Paste an inquiry and click Analyze</p>
+          </div>
+          <div class="triage-output" id="triageOutput" style="display:none;"></div>
+        </div>
+
+        <div class="card triage-history-card">
+          <div class="card-header"><h3 class="card-title">Triage History</h3><span class="tag">Last 24h</span></div>
+          <div class="history-list" id="triageHistory"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ANALYTICS VIEW -->
+    <div id="view-analytics" class="view">
+      <div class="page-header">
+        <div>
+          <h1 class="page-title">Analytics & Outcomes</h1>
+          <p class="page-subtitle">Measure what matters — response rate, conversion, CSAT, and AI impact</p>
+        </div>
+        <div class="header-actions">
+          <select class="select-input" onchange="updateAnalytics(this.value)">
+            <option value="30">Last 30 days</option>
+            <option value="60">Last 60 days</option>
+            <option value="90">Last 90 days</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="analytics-grid">
+        <div class="card">
+          <div class="card-header"><h3 class="card-title">Response Time Distribution</h3></div>
+          <canvas id="responseChart" width="400" height="200"></canvas>
+        </div>
+        <div class="card">
+          <div class="card-header"><h3 class="card-title">Inquiry-to-Conversion Funnel</h3></div>
+          <div class="funnel-chart" id="funnelChart"></div>
+        </div>
+        <div class="card full-width">
+          <div class="card-header"><h3 class="card-title">AI vs Human Performance Comparison</h3></div>
+          <div class="comparison-grid">
+            <div class="compare-col">
+              <div class="compare-header ai-header">🤖 With AI Assistance</div>
+              <div class="compare-metric"><span class="metric-big green">4.2m</span><span>Avg First Response</span></div>
+              <div class="compare-metric"><span class="metric-big green">94%</span><span>CSAT Score</span></div>
+              <div class="compare-metric"><span class="metric-big green">3</span><span>Missed Inquiries/wk</span></div>
+              <div class="compare-metric"><span class="metric-big green">31%</span><span>Inquiry-to-Conversion</span></div>
+            </div>
+            <div class="compare-divider">VS</div>
+            <div class="compare-col">
+              <div class="compare-header human-header">👤 Before AI (Baseline)</div>
+              <div class="compare-metric"><span class="metric-big red">19m</span><span>Avg First Response</span></div>
+              <div class="compare-metric"><span class="metric-big red">82%</span><span>CSAT Score</span></div>
+              <div class="compare-metric"><span class="metric-big red">34</span><span>Missed Inquiries/wk</span></div>
+              <div class="compare-metric"><span class="metric-big red">18%</span><span>Inquiry-to-Conversion</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header"><h3 class="card-title">Topic Clustering (AI-Detected)</h3></div>
+          <div class="topic-cloud" id="topicCloud"></div>
+        </div>
+        <div class="card">
+          <div class="card-header"><h3 class="card-title">Sentiment Over Time</h3></div>
+          <canvas id="sentimentChart" width="400" height="200"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <!-- ESPORTS VIEW -->
+    <div id="view-esports" class="view">
+      <div class="esports-hero">
+        <div class="esports-hero-content">
+          <div class="gg-badge">GG LIFE × NEOINQUIRY</div>
+          <h1 class="esports-title">Esports Learning Program<br/>Inquiry Intelligence</h1>
+          <p class="esports-subtitle">Every enrollment inquiry answered. No program lead left behind.</p>
+        </div>
+        <div class="esports-glow"></div>
+      </div>
+
+      <div class="esports-grid">
+        <div class="card esports-kpi-card">
+          <div class="esports-kpi-row">
+            <div class="esports-kpi"><div class="ekpi-val">47</div><div class="ekpi-label">College Inquiries (60d)</div></div>
+            <div class="esports-kpi"><div class="ekpi-val">100%</div><div class="ekpi-label">Response Rate</div></div>
+            <div class="esports-kpi"><div class="ekpi-val">12</div><div class="ekpi-label">Programs Launched</div></div>
+            <div class="esports-kpi"><div class="ekpi-val">$284k</div><div class="ekpi-label">Pipeline Generated</div></div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header"><h3 class="card-title">Incoming College Inquiry — AI Workflow</h3></div>
+          <div class="workflow-steps" id="workflowSteps">
+            <div class="workflow-step done">
+              <div class="step-icon">📧</div>
+              <div class="step-body">
+                <div class="step-title">Inquiry Received</div>
+                <div class="step-detail">Email from University of Texas Esports Coordinator — "Interested in GG Life coaching curriculum for our varsity team"</div>
+              </div>
+              <div class="step-status done-badge">Done</div>
+            </div>
+            <div class="workflow-step done">
+              <div class="step-icon">🧠</div>
+              <div class="step-body">
+                <div class="step-title">AI Classification</div>
+                <div class="step-detail">Intent: Partnership/Enrollment • Segment: Collegiate • Urgency: High • Sentiment: Positive</div>
+              </div>
+              <div class="step-status done-badge">Done</div>
+            </div>
+            <div class="workflow-step done">
+              <div class="step-icon">📋</div>
+              <div class="step-body">
+                <div class="step-title">Context Enrichment</div>
+                <div class="step-detail">Pulled program catalog, pricing tiers, available curriculum modules, past similar deals</div>
+              </div>
+              <div class="step-status done-badge">Done</div>
+            </div>
+            <div class="workflow-step active">
+              <div class="step-icon">✍️</div>
+              <div class="step-body">
+                <div class="step-title">AI Draft Response</div>
+                <div class="step-detail">Personalized proposal email generated — awaiting human review before send</div>
+              </div>
+              <div class="step-status active-badge">Review</div>
+            </div>
+            <div class="workflow-step pending">
+              <div class="step-icon">📅</div>
+              <div class="step-body">
+                <div class="step-title">Follow-up Scheduled</div>
+                <div class="step-detail">Reminder set for T+2 days if no reply; escalation at T+4 days</div>
+              </div>
+              <div class="step-status pending-badge">Pending</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header"><h3 class="card-title">AI Draft Response Preview</h3></div>
+          <div class="draft-email">
+            <div class="draft-meta">
+              <div><strong>To:</strong> esports@utexas.edu</div>
+              <div><strong>Subject:</strong> GG Life Collegiate Esports Program — Custom Proposal for UT Austin</div>
+            </div>
+            <div class="draft-body" id="draftEmailBody">
+              <p>Hi [Coordinator Name],</p>
+              <p>Thank you for reaching out about the GG Life coaching curriculum — we love supporting varsity programs that are serious about competitive development.</p>
+              <p>Based on your team's needs, I'd recommend our <strong>Collegiate Tier</strong>, which includes:</p>
+              <ul>
+                <li>✓ Weekly 1:1 coaching sessions per player</li>
+                <li>✓ Structured VOD review curriculum (10 modules)</li>
+                <li>✓ Team analytics dashboard with performance tracking</li>
+                <li>✓ Dedicated program coordinator (your point of contact)</li>
+              </ul>
+              <p>Teams similar to yours have seen <strong>23% improvement in ranked performance</strong> within 60 days.</p>
+              <p>I've blocked time this Thursday 2–4 PM CT for a 20-minute discovery call. Does that work?</p>
+              <p>Warm regards,<br/><em>— NeoAistriq / GG Life Team</em></p>
+              <div class="ai-note">🤖 AI-generated draft — review before sending</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header"><h3 class="card-title">Clarify → Deliver → Measure Framework</h3></div>
+          <div class="cdm-framework">
+            <div class="cdm-step">
+              <div class="cdm-icon">🔍</div>
+              <div class="cdm-title">CLARIFY</div>
+              <ul class="cdm-list">
+                <li>What's the current missed-inquiry rate?</li>
+                <li>Which channels generate most leads?</li>
+                <li>What does a "converted" inquiry look like?</li>
+                <li>Who owns follow-up today?</li>
+                <li>What's the max acceptable response time?</li>
+              </ul>
+            </div>
+            <div class="cdm-step">
+              <div class="cdm-icon">🚀</div>
+              <div class="cdm-title">DELIVER FIRST</div>
+              <ul class="cdm-list">
+                <li>Unified inbox across all channels</li>
+                <li>AI triage + priority scoring</li>
+                <li>Auto-draft responses for common intents</li>
+                <li>Missed inquiry alerting (SLA breach)</li>
+                <li>Human-in-the-loop approval flow</li>
+              </ul>
+            </div>
+            <div class="cdm-step">
+              <div class="cdm-icon">📊</div>
+              <div class="cdm-title">MEASURE</div>
+              <ul class="cdm-list">
+                <li>First response time (target: &lt;5 min)</li>
+                <li>Missed inquiry rate (target: 0)</li>
+                <li>Inquiry-to-conversion rate</li>
+                <li>CSAT / NPS post-interaction</li>
+                <li>AI draft acceptance rate</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- AGENTS VIEW -->
+    <div id="view-agents" class="view">
+      <div class="page-header">
+        <div>
+          <h1 class="page-title">Agent Console</h1>
+          <p class="page-subtitle">Autonomous AI agents handling inquiry workflows around the clock</p>
+        </div>
+      </div>
+      <div class="agents-grid">
+        <div class="agent-card" id="agent-triage">
+          <div class="agent-header">
+            <div class="agent-avatar triage-color">T</div>
+            <div>
+              <div class="agent-name">Triage Agent</div>
+              <div class="agent-status running">● Running</div>
+            </div>
+            <div class="agent-toggle" onclick="toggleAgent('triage')">
+              <div class="toggle-track on"><div class="toggle-thumb"></div></div>
+            </div>
+          </div>
+          <div class="agent-desc">Classifies every incoming inquiry by intent, urgency, sentiment and segment. Routes to the right team member or auto-resolves.</div>
+          <div class="agent-stats">
+            <div class="astat"><strong>1,247</strong><span>Processed</span></div>
+            <div class="astat"><strong>98.3%</strong><span>Accuracy</span></div>
+            <div class="astat"><strong>0.4s</strong><span>Avg Latency</span></div>
+          </div>
+          <div class="agent-log" id="log-triage">
+            <div class="log-entry">✓ Classified inquiry #2847 → High Priority / Pricing</div>
+            <div class="log-entry">✓ Auto-resolved #2846 → FAQ Match (refund policy)</div>
+            <div class="log-entry">✓ Escalated #2845 → Urgent / 2nd attempt customer</div>
+          </div>
+        </div>
+
+        <div class="agent-card" id="agent-draft">
+          <div class="agent-header">
+            <div class="agent-avatar draft-color">D</div>
+            <div>
+              <div class="agent-name">Draft Agent</div>
+              <div class="agent-status running">● Running</div>
+            </div>
+            <div class="agent-toggle" onclick="toggleAgent('draft')">
+              <div class="toggle-track on"><div class="toggle-thumb"></div></div>
+            </div>
+          </div>
+          <div class="agent-desc">Generates personalized response drafts using RAG over your knowledge base, past conversations, and CRM context. Humans review before sending.</div>
+          <div class="agent-stats">
+            <div class="astat"><strong>847</strong><span>Drafts Created</span></div>
+            <div class="astat"><strong>73%</strong><span>Accepted as-is</span></div>
+            <div class="astat"><strong>1.2s</strong><span>Draft Time</span></div>
+          </div>
+          <div class="agent-log" id="log-draft">
+            <div class="log-entry">✓ Draft ready for inquiry #2847 — pricing response</div>
+            <div class="log-entry">✓ Draft accepted by agent → sent to john@company.com</div>
+            <div class="log-entry">✓ Draft regenerated (agent edited) #2843</div>
+          </div>
+        </div>
+
+        <div class="agent-card" id="agent-followup">
+          <div class="agent-header">
+            <div class="agent-avatar followup-color">F</div>
+            <div>
+              <div class="agent-name">Follow-up Agent</div>
+              <div class="agent-status running">● Running</div>
+            </div>
+            <div class="agent-toggle" onclick="toggleAgent('followup')">
+              <div class="toggle-track on"><div class="toggle-thumb"></div></div>
+            </div>
+          </div>
+          <div class="agent-desc">Monitors open inquiries and SLA clocks. Sends automated follow-ups at T+2d and T+4d, escalates to human if no response after second attempt.</div>
+          <div class="agent-stats">
+            <div class="astat"><strong>312</strong><span>Follow-ups Sent</span></div>
+            <div class="astat"><strong>41%</strong><span>Reactivation Rate</span></div>
+            <div class="astat"><strong>0</strong><span>SLA Breaches</span></div>
+          </div>
+          <div class="agent-log" id="log-followup">
+            <div class="log-entry">✓ T+2 follow-up sent to sarah@college.edu (GG Life inquiry)</div>
+            <div class="log-entry">⚡ Escalating #2801 — no reply after 4 days</div>
+            <div class="log-entry">✓ Reactivated: mike@startup.io replied to follow-up</div>
+          </div>
+        </div>
+
+        <div class="agent-card" id="agent-insight">
+          <div class="agent-header">
+            <div class="agent-avatar insight-color">I</div>
+            <div>
+              <div class="agent-name">Insight Agent</div>
+              <div class="agent-status running">● Running</div>
+            </div>
+            <div class="agent-toggle" onclick="toggleAgent('insight')">
+              <div class="toggle-track on"><div class="toggle-thumb"></div></div>
+            </div>
+          </div>
+          <div class="agent-desc">Runs nightly analysis across all inquiry data, surfaces trends, anomalies, and actionable insights for the team lead every morning.</div>
+          <div class="agent-stats">
+            <div class="astat"><strong>Daily</strong><span>Report Cadence</span></div>
+            <div class="astat"><strong>18</strong><span>Insights Surfaced</span></div>
+            <div class="astat"><strong>3</strong><span>Anomalies Detected</span></div>
+          </div>
+          <div class="agent-log" id="log-insight">
+            <div class="log-entry">📊 Weekly digest sent to team@neoinquiry.com</div>
+            <div class="log-entry">🚨 Anomaly: spike in pricing queries — competitor pricing event?</div>
+            <div class="log-entry">💡 Insight: Tuesday 10am has highest unread inquiry backlog</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Toast Container -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
