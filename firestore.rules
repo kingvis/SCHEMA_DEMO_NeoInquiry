@@ -1,0 +1,35 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function signedIn() {
+      return request.auth != null;
+    }
+
+    function belongsToTenant(tenantId) {
+      return signedIn() && (
+        request.auth.token.tenantId == tenantId
+        || (tenantId == 'demo' && request.auth.token.firebase.sign_in_provider == 'anonymous')
+      );
+    }
+
+    match /tenants/{tenantId}/inquiries/{inquiryId} {
+      allow read: if belongsToTenant(tenantId);
+      allow write: if false;
+    }
+
+    match /tenants/{tenantId}/customers/{customerId} {
+      allow read: if belongsToTenant(tenantId);
+      allow write: if false;
+    }
+
+    match /tenants/{tenantId}/approvals/{approvalId} {
+      allow create: if belongsToTenant(tenantId)
+        && request.resource.data.status == 'pending'
+        && request.resource.data.inquiryId is string
+        && request.resource.data.draft is string;
+      allow read: if belongsToTenant(tenantId);
+      allow update, delete: if false;
+    }
+  }
+}

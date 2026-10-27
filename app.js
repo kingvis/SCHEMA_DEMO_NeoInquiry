@@ -14,6 +14,7 @@ const state = {
   triageChannel: 'email',
   agentStates: { triage: true, draft: true, followup: true, insight: true },
   animationsDone: {},
+  dataSource: 'local-demo',
 };
 
 // ── DATA ───────────────────────────────────────────────────
@@ -186,7 +187,21 @@ const TOPIC_DATA = [
 ];
 
 // ── INIT ───────────────────────────────────────────────────
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
+  if (window.neoFirebaseReady) {
+    const firebase = await window.neoFirebaseReady;
+    if (firebase.enabled && firebase.status === 'connected') {
+      try {
+        const remoteItems = await firebase.getInquiries();
+        if (remoteItems.length) {
+          INBOX_DATA.splice(0, INBOX_DATA.length, ...remoteItems);
+          state.dataSource = 'firebase';
+        }
+      } catch (error) {
+        console.warn('Could not load Firebase inquiries; using local demo data.', error);
+      }
+    }
+  }
   renderLiveFeed();
   renderInbox();
   renderTriageHistory();
@@ -319,6 +334,10 @@ function selectInboxItem(id) {
           <span><strong>Received:</strong> ${item.time}</span>
         </div>
       </div>
+      <div class="ai-analysis-panel" id="customer-context-${id}">
+        <div class="ai-panel-header"><span style="font-size:16px">◉</span><span class="ai-panel-title">Customer Context</span></div>
+        <div style="font-size:12px;color:var(--text-muted);">Loading verified customer context...</div>
+      </div>
       <div class="detail-body">${item.body.replace(/\n/g, '<br>')}</div>
 
       <div class="ai-analysis-panel">
@@ -352,6 +371,31 @@ function selectInboxItem(id) {
       </div>
     </div>
   `;
+  loadCustomerContext(item, id);
+}
+
+async function loadCustomerContext(item, id) {
+  const container = document.getElementById(`customer-context-${id}`);
+  if (!container || !window.neoFirebase?.getCustomerContext) return;
+  try {
+    const customer = await window.neoFirebase.getCustomerContext(item.email);
+    if (!customer) {
+      container.innerHTML = '<div class="ai-panel-header"><span style="font-size:16px">◉</span><span class="ai-panel-title">Customer Context</span></div><div style="font-size:12px;color:var(--text-muted);">No verified customer record found. Drafts must not invent context.</div>';
+      return;
+    }
+    container.innerHTML = `
+      <div class="ai-panel-header"><span style="font-size:16px">◉</span><span class="ai-panel-title">Verified Customer Context</span></div>
+      <div class="ai-chips">
+        <span class="ai-chip chip-segment">${customer.organization || 'Organization unavailable'}</span>
+        <span class="ai-chip chip-intent">${customer.lifecycleStage || 'Lifecycle unavailable'}</span>
+        <span class="ai-chip chip-sentiment">Consent: ${customer.consentStatus || 'Unknown'}</span>
+      </div>
+      <div style="font-size:12px;color:var(--text-muted);line-height:1.5;">${customer.notes || 'No additional notes.'}</div>
+    `;
+  } catch (error) {
+    container.innerHTML = '<div class="ai-panel-header"><span style="font-size:16px">◉</span><span class="ai-panel-title">Customer Context</span></div><div style="font-size:12px;color:var(--red);">Verified context unavailable. Do not use unverified claims.</div>';
+    console.warn('Could not load customer context.', error);
+  }
 }
 
 function filterInbox(filter, el) {
@@ -363,6 +407,17 @@ function filterInbox(filter, el) {
 
 function sendDraft(id) {
   const item = INBOX_DATA.find(i => i.id === id);
+  const draft = document.getElementById(`draft-${id}`)?.value || item?.draft || '';
+  if (window.neoFirebase?.enabled && state.dataSource === 'firebase') {
+    window.neoFirebase.requestApproval({ inquiryId: id, draft }).then(result => {
+      if (!result.ok) {
+        showToast(result.reason || 'Draft requires review before approval', 'error');
+        return;
+      }
+      showToast('Draft submitted for human approval', 'info');
+    });
+    return;
+  }
   showToast(`Response sent to ${item.email} ✓`, 'success');
   const el = document.getElementById(`inbox-${id}`);
   if (el) el.style.opacity = '0.5';

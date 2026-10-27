@@ -1,0 +1,26 @@
+[
+  {
+    "id": "customer-jordan-walsh",
+    "email": "j.walsh@utexas.edu",
+    "name": "Jordan Walsh",
+    "organization": "UT Austin Esports",
+    "segment": "Collegiate Esports",
+    "lifecycleStage": "Prospect",
+    "consentStatus": "confirmed",
+    "previousInteractions": 1,
+    "openOpportunity": "Collegiate coaching program",
+    "notes": "Interested in structured coaching, analytics, and curriculum details."
+  },
+  {
+    "id": "customer-priya-sharma",
+    "email": "priya@techstartup.io",
+    "name": "Priya Sharma",
+    "organization": "TechStartup.io",
+    "segment": "SaaS / Startup",
+    "lifecycleStage": "Sales qualified",
+    "consentStatus": "confirmed",
+    "previousInteractions": 2,
+    "openOpportunity": "AI operations pricing evaluation",
+    "notes": "Second contact attempt. Requires verified pricing and prompt human follow-up."
+  }
+]

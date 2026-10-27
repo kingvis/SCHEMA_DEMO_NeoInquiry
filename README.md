@@ -23,6 +23,30 @@ NeoInquiry is a frontend demonstration of an AI-assisted workflow for preventing
 
 The demo uses deterministic client-side logic and in-memory data. A production implementation would connect the classification and draft functions to an LLM API, persist data, authenticate users, and receive channel webhooks.
 
+## Firebase vertical slice
+
+The repository includes an optional Firebase integration for the first production boundary:
+
+- `firebase-client.js` loads Firestore inquiries when a valid Firebase Web App configuration is present.
+- `firebase-client.js` exposes inquiry search and customer-context reads for the application/MCP boundary.
+- `mcp-server.mjs` exposes the same two read-only operations through MCP over stdio.
+- `firestore.rules` requires authenticated users to carry a matching `tenantId` claim and prevents direct inquiry writes.
+- Draft submission creates a pending approval record instead of sending directly.
+- `neo-inquiry.mjs` provides `validate`, `seed`, and `check-deploy` commands.
+
+### Enable Firebase
+
+1. Create a Firebase project and Web App.
+2. Copy the Web App configuration into `firebase-config.js`.
+3. Enable anonymous authentication for the `demo` tenant, or replace it with your production identity provider and set a `tenantId` custom claim.
+4. Deploy `firestore.rules` using the Firebase CLI.
+5. Install dependencies with `npm install`.
+6. Run `npm run validate`.
+7. Set `GOOGLE_APPLICATION_CREDENTIALS` and `NEO_TENANT_ID`, then run `npm run seed`.
+8. Run `npm run mcp` from an MCP-compatible host to expose the read-only tools.
+
+The service-account file must never be committed. Firebase mode is disabled automatically when the web configuration is empty, so the static demo still runs without credentials.
+
 ## Personally owned files
 
 - `index.html` - application markup and layout

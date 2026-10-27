@@ -1,0 +1,40 @@
+[
+  {
+    "id": "inq-001",
+    "sender": "Jordan Walsh",
+    "email": "j.walsh@utexas.edu",
+    "subject": "Esports Coaching Program Interest - UT Austin Varsity",
+    "preview": "Our varsity esports team is exploring structured coaching.",
+    "body": "We are interested in structured coaching, performance analytics, and a discovery call.",
+    "time": "2m ago",
+    "channel": "email",
+    "priority": "urgent",
+    "tags": ["urgent", "email"],
+    "intent": "Partnership / Program Enrollment",
+    "sentiment": "Positive",
+    "urgency": "High",
+    "segment": "Collegiate Esports",
+    "draft": "Thank you for reaching out. We would be happy to discuss the collegiate program and schedule a discovery call.",
+    "read": false,
+    "receivedAt": "2026-10-27T09:00:00.000Z"
+  },
+  {
+    "id": "inq-002",
+    "sender": "Priya Sharma",
+    "email": "priya@techstartup.io",
+    "subject": "Following up - pricing question",
+    "preview": "I sent an email four days ago and need an answer this week.",
+    "body": "We are evaluating vendors and need verified pricing and implementation details.",
+    "time": "14m ago",
+    "channel": "email",
+    "priority": "urgent",
+    "tags": ["urgent", "email"],
+    "intent": "Sales / Pricing",
+    "sentiment": "Frustrated",
+    "urgency": "Critical - 2nd attempt",
+    "segment": "SaaS / Startup",
+    "draft": "I apologize for the delayed response. I can arrange a call to discuss your requirements and provide approved pricing.",
+    "read": false,
+    "receivedAt": "2026-10-27T08:45:00.000Z"
+  }
+]
