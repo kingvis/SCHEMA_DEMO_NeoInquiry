@@ -1,0 +1,19 @@
+{
+  "firestore": {
+    "rules": "firestore.rules",
+    "indexes": "firestore.indexes.json"
+  },
+  "hosting": {
+    "site": "REMOVED_FIREBASE_HOSTING_SITE",
+    "public": ".",
+    "ignore": [
+      "firebase.json",
+      "firestore.rules",
+      "firestore.indexes.json",
+      "node_modules/**",
+      ".git/**",
+      "service-account*.json"
+    ],
+    "cleanUrls": true
+  }
+}
