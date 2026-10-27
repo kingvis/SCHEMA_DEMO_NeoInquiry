@@ -5,7 +5,7 @@ NeoInquiry is a frontend demonstration of an AI-assisted workflow for preventing
 ## Demo
 
 - Live source repository: https://github.com/kingvis/SCHEMA_DEMO_NeoInquiry
-- Video walkthrough: add the final Google Drive link here before submitting
+- Video walkthrough: shared separately via Google Drive with the submission email
 
 ## What this demonstrates
 
