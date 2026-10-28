@@ -4,3 +4,4 @@ node_modules/
 *.log
 service-account*.json
 firebase-service-account*.json
+.firebaserc

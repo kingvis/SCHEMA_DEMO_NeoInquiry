@@ -5,7 +5,6 @@ NeoInquiry is a frontend demonstration of an AI-assisted workflow for preventing
 ## Demo
 
 - Live source repository: https://github.com/kingvis/SCHEMA_DEMO_NeoInquiry
-- Live Firebase deployment: https://REMOVED_FIREBASE_HOSTING_SITE.web.app
 - Video walkthrough: shared separately via Google Drive with the submission email
 
 ## What this demonstrates
@@ -49,13 +48,6 @@ The repository includes an optional Firebase integration for the first productio
 Firebase Hosting serves the static demo after `firebase deploy --only hosting`. Enable Google sign-in in Firebase Console under Authentication before using production user accounts.
 
 The service-account file must never be committed. Firebase mode is disabled automatically when the web configuration is empty, so the static demo still runs without credentials.
-
-### Connected Firebase project
-
-- Project: `REMOVED_FIREBASE_PROJECT_NAME`
-- Project ID: `REMOVED_FIREBASE_PROJECT`
-- Hosting site: `REMOVED_FIREBASE_HOSTING_SITE`
-- Firestore database: `(default)` in `nam5`
 
 ## Personally owned files
 
